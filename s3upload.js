@@ -18,9 +18,9 @@ S3Upload.prototype.onFinishS3Put = function(signResult, file) {
   metadata: {
     size:      file.size,
     filename:  file.name,
-  
+    mime_type: file.type
   }
-    });
+    };
 };
 
 S3Upload.prototype.onProgress = function(percent, status, file) {
