@@ -12,8 +12,8 @@ S3Upload.prototype.fileElement = null;
 S3Upload.prototype.files = null;
 
 S3Upload.prototype.onFinishS3Put = function(signResult, file) {
-    return console.log('base.onFinishS3Put()', {
-  id: signResult.fields.key.match(/cache\/(.+)/)[1], # we have to remove the prefix part
+    return {
+  id: signResult.fields.key.match(/cache\/(.+)/)[1],
   storage: 'cache',
   metadata: {
     size:      file.size,
