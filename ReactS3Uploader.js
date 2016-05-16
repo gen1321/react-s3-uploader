@@ -24,8 +24,17 @@ var ReactS3Uploader = React.createClass({
             onProgress: function(percent, message) {
                 console.log('Upload progress: ' + percent + '% ' + message);
             },
-            onFinish: function(signResult) {
-                console.log("Upload finished: " + signResult.url)
+            onFinish: function(signResult,file) {
+                console.log("Upload finished: " + {
+                id: signResult.fields.key.match(/cache\/(.+)/)[1],
+                storage: 'cache',
+                metadata: {
+                  size:      file.size,
+                  filename:  file.name,
+                  mime_type: file.type
+                }
+                  };
+              };)
             },
             onError: function(message) {
                 console.log("Upload error: " + message);
