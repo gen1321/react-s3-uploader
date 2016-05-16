@@ -33,7 +33,7 @@ var ReactS3Uploader = React.createClass({
                   filename:  file.name,
                   mime_type: file.type
                 }})
-                  };
+                  }
 
             ,
             onError: function(message) {
