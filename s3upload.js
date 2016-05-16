@@ -13,12 +13,12 @@ S3Upload.prototype.files = null;
 
 S3Upload.prototype.onFinishS3Put = function(signResult, file) {
     return {
-  id: signResult.fields.key.match(/cache\/(.+)/)[1],
-  storage: 'cache',
-  metadata: {
-    size:      file.size,
-    filename:  file.name,
-    mime_type: file.type
+        id: signResult.fields.key.match(/cache\/(.+)/)[1],
+        storage: 'cache',
+        metadata: {
+          size:      file.size,
+          filename:  file.name,
+          mime_type: file.type
   }
     };
 };
@@ -73,7 +73,7 @@ S3Upload.prototype.createCORSRequest = function(method, url) {
 S3Upload.prototype.executeOnSignedUrl = function(file, callback) {
     var normalizedFileName = unorm.nfc(file.name.replace(/\s+/g, "_"));
     var fileName = latinize(normalizedFileName);
-    var queryString = '?objectName=' + fileName + '&contentType=' + encodeURIComponent(file.type);
+    var queryString = '?objectName=' + fileName + '&contentType=' + encodeURIComponent(file.type) + 'extension='++ file.name.substr(file.name.indexOf("."));
     if (this.signingUrlQueryParams) {
         var signingUrlQueryParams = this.signingUrlQueryParams;
         Object.keys(signingUrlQueryParams).forEach(function(key) {
@@ -109,7 +109,7 @@ S3Upload.prototype.executeOnSignedUrl = function(file, callback) {
 };
 
 S3Upload.prototype.uploadToS3 = function(file, signResult) {
-    var xhr = this.createCORSRequest('PUT', signResult.url+'/'+signResult.fields.key+ file.name.substr(file.name.indexOf(".")));
+    var xhr = this.createCORSRequest('PUT', signResult.url+'/'+signResult.fields.key);
     this.uploadRequestHeaders = signResult.fields
     if (!xhr) {
         this.onError('CORS not supported', file);
