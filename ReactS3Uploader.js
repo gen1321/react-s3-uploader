@@ -32,10 +32,10 @@ var ReactS3Uploader = React.createClass({
                   size:      file.size,
                   filename:  file.name,
                   mime_type: file.type
-                }
+                })
                   };
-              };)
-            },
+              };
+            ,
             onError: function(message) {
                 console.log("Upload error: " + message);
             },
